@@ -18,13 +18,25 @@
 
 ## Goondori (군돌이)
 
+### Adrop
+
 | Patch | Function |
 | --- | --- |
-| `Disable Adrop Ads` | Stops the Adrop advertising SDK from initializing and receiving a user ID. |
+| `Disable Adrop Ads` | Stops the advertising SDK from initializing and receiving a user ID. |
 | `Disable Adrop Metrics` | Blocks Adrop user properties and analytics events. |
-| `Disable Firebase Analytics` | Blocks Firebase events, user IDs, user properties, and default event parameters. |
-| `Disable Firebase Startup Collection` | Disables Firebase Analytics collection and advertising-personalization signals at startup. |
-| `Disable Sentry` | Disables Sentry error and performance telemetry. |
+
+### Telemetry
+
+| Patch | Function |
+| --- | --- |
+| `Disable Firebase Analytics` | Blocks events, user IDs, user properties, and default event parameters. |
+| `Disable Firebase Startup Collection` | Disables collection and advertising-personalization signals at startup. |
+| `Disable Sentry` | Disables error and performance telemetry. |
+
+### Permissions
+
+| Patch | Function |
+| --- | --- |
 | `Remove Unnecessary Permissions` | Removes advertising, overlay, video, media-location, legacy storage, and screen-capture detection permissions. |
 
 ## Use
