@@ -6,11 +6,14 @@ import app.revanced.patcher.patch.bytecodePatch
 @Suppress("unused")
 val disableGooglePlayAutomaticProtectionPatch = bytecodePatch(
     name = "Disable Google Play Automatic Protection",
-    description = "Prevents Google Play PairIP from blocking Goondori when it was installed outside Google Play.",
+    description = "Makes Google Play PairIP accept Goondori installations from outside Google Play.",
 ) {
     compatibleWith("com.goondori"("5.6.0"))
 
     apply {
-        pairipLicenseCheckFingerprint.method.addInstruction(0, "return-void")
+        pairipLocalInstallerCheckFingerprint.method.apply {
+            addInstruction(0, "return v0")
+            addInstruction(0, "const/4 v0, 0x1")
+        }
     }
 }

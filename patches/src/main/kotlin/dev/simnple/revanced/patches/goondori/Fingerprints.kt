@@ -73,8 +73,11 @@ internal val adropSendEventFingerprint = exactVoidMethodFingerprint(
     listOf("Ljava/lang/String;", "Lcom/facebook/react/bridge/ReadableMap;"),
 )
 
-internal val pairipLicenseCheckFingerprint = exactVoidMethodFingerprint(
-    PAIRIP_LICENSE_CLIENT,
-    "checkLicense",
-    listOf("Landroid/content/Context;"),
-)
+internal val pairipLocalInstallerCheckFingerprint = fingerprint {
+    custom { method, classDef ->
+        classDef.type == PAIRIP_LICENSE_CLIENT &&
+            method.name == "performLocalInstallerCheck" &&
+            method.returnType == "Z" &&
+            method.parameterTypes.isEmpty()
+    }
+}
