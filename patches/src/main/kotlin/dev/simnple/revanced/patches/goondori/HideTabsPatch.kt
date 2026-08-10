@@ -7,6 +7,7 @@ private const val HERMES_BUNDLE_PATH = "assets/index.android.bundle"
 private const val EXPECTED_BUNDLE_SIZE = 17_432_292
 private const val GET_BY_ID_OPCODE = 69
 private const val MORE_STRING_ID = 45_397
+private const val MORE_PROPERTY_CACHE_INDEX = 10
 
 private val expectedBundleHeader = byteArrayOf(
     0xc6.toByte(), 0x1f, 0xbc.toByte(), 0x03, 0xc1.toByte(), 0x03, 0x19, 0x1f,
@@ -79,6 +80,7 @@ private fun ResourcePatchContext.hideTab(tab: GoondoriTab) {
     }
 
     tab.operandOffsets.forEach { operandOffset ->
+        bundle[operandOffset - 1] = MORE_PROPERTY_CACHE_INDEX.toByte()
         bundle[operandOffset] = (MORE_STRING_ID and 0xff).toByte()
         bundle[operandOffset + 1] = (MORE_STRING_ID ushr 8).toByte()
     }
