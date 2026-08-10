@@ -4,6 +4,7 @@ import app.revanced.patcher.fingerprint
 
 private const val FIREBASE_ANALYTICS = "Lcom/google/firebase/analytics/FirebaseAnalytics;"
 private const val ADROP_METRICS_MODULE = "Lio/adrop/AdropMetricsModule;"
+private const val PAIRIP_LICENSE_CLIENT = "Lcom/pairip/licensecheck/LicenseClient;"
 
 internal fun exactVoidMethodFingerprint(
     classDescriptor: String,
@@ -70,4 +71,10 @@ internal val adropSendEventFingerprint = exactVoidMethodFingerprint(
     ADROP_METRICS_MODULE,
     "sendEvent",
     listOf("Ljava/lang/String;", "Lcom/facebook/react/bridge/ReadableMap;"),
+)
+
+internal val pairipLicenseCheckFingerprint = exactVoidMethodFingerprint(
+    PAIRIP_LICENSE_CLIENT,
+    "checkLicense",
+    listOf("Landroid/content/Context;"),
 )

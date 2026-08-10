@@ -18,7 +18,7 @@ Choose **Remote** and enter this patch bundle URL:
 https://raw.githubusercontent.com/simnple/revanced-patches/main/patches.json
 ```
 
-For a local installation, [download the latest RVP bundle](https://github.com/simnple/revanced-patches/releases/latest/download/patches-1.1.0.rvp) and choose **Local** in ReVanced Manager.
+For a local installation, [download the latest RVP bundle](https://github.com/simnple/revanced-patches/releases/latest/download/patches-1.2.0.rvp) and choose **Local** in ReVanced Manager.
 
 ## Supported apps
 
@@ -45,6 +45,12 @@ For a local installation, [download the latest RVP bundle](https://github.com/si
 | Patch | Function |
 | --- | --- |
 | `Remove Unnecessary Permissions` | Removes advertising, overlay, video, media-location, legacy storage, and screen-capture detection permissions. |
+
+### Installation
+
+| Patch | Function |
+| --- | --- |
+| `Disable Google Play Automatic Protection` | Disables Goondori's Google Play PairIP installer check so patched or extracted APKs can launch outside Google Play. |
 
 </details>
 
