@@ -3,7 +3,7 @@ group = "dev.simnple.revanced.patches"
 patches {
     about {
         name = "ReVanced Patches"
-        description = "Privacy-focused ReVanced patches, starting with Goondori"
+        description = "Function-specific ReVanced patches for supported Android apps"
         source = "https://github.com/simnple/revanced-patches"
         author = "simnple"
         contact = ""
