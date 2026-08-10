@@ -10,13 +10,20 @@
 
 </div>
 
+## Add to ReVanced Manager
+
+Choose **Remote** and enter this patch bundle URL:
+
+```text
+https://raw.githubusercontent.com/simnple/revanced-patches/main/patches.json
+```
+
+For a local installation, [download the latest RVP bundle](https://github.com/simnple/revanced-patches/releases/latest/download/patches-1.1.0.rvp) and choose **Local** in ReVanced Manager.
+
 ## Supported apps
 
-| App | Package | Version |
-| --- | --- | --- |
-| Goondori (군돌이) | `com.goondori` | `5.6.0` (`214`) |
-
-## Goondori (군돌이)
+<details>
+<summary><strong>Goondori (군돌이)</strong> · <code>com.goondori</code> · 5.6.0 (214)</summary>
 
 ### Adrop
 
@@ -39,19 +46,7 @@
 | --- | --- |
 | `Remove Unnecessary Permissions` | Removes advertising, overlay, video, media-location, legacy storage, and screen-capture detection permissions. |
 
-## Use
-
-ReVanced Manager patches source:
-
-```text
-https://github.com/simnple/revanced-patches
-```
-
-Direct bundle download:
-
-```text
-https://github.com/simnple/revanced-patches/releases/latest/download/patches-1.1.0.rvp
-```
+</details>
 
 ## License
 
