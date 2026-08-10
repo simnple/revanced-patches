@@ -18,7 +18,7 @@ Choose **Remote** and enter this patch bundle URL:
 https://raw.githubusercontent.com/simnple/revanced-patches/main/patches.json
 ```
 
-For a local installation, [download the latest RVP bundle](https://github.com/simnple/revanced-patches/releases/latest/download/patches-1.2.1.rvp) and choose **Local** in ReVanced Manager.
+For a local installation, [download the latest RVP bundle](https://github.com/simnple/revanced-patches/releases/latest/download/patches-1.3.0.rvp) and choose **Local** in ReVanced Manager.
 
 ## Supported apps
 
@@ -40,11 +40,14 @@ For a local installation, [download the latest RVP bundle](https://github.com/si
 | `Disable Firebase Startup Collection` | Disables collection and advertising-personalization signals at startup. |
 | `Disable Sentry` | Disables error and performance telemetry. |
 
-### Permissions
+### Network services
 
 | Patch | Function |
 | --- | --- |
-| `Remove Unnecessary Permissions` | Removes advertising, overlay, video, media-location, legacy storage, and screen-capture detection permissions. |
+| `Disable Firebase Logging` | Stops Firebase and Google DataTransport telemetry sent through `firebaselogging.googleapis.com`. |
+| `Disable Firebase Remote Config` | Stops Firebase from fetching server-controlled settings. |
+| `Disable Funding Choices` | Stops Google Funding Choices and UMP advertising-consent requests. |
+| `Disable RevenueCat` | Stops RevenueCat subscription, entitlement, purchase-status, and paywall requests. RevenueCat-backed purchases will not work. |
 
 ### Installation
 
