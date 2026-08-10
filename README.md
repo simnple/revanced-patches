@@ -18,7 +18,7 @@ Choose **Remote** and enter this patch bundle URL:
 https://raw.githubusercontent.com/simnple/revanced-patches/main/patches.json
 ```
 
-For a local installation, [download the latest RVP bundle](https://github.com/simnple/revanced-patches/releases/latest/download/patches-1.3.0.rvp) and choose **Local** in ReVanced Manager.
+For a local installation, [download the latest RVP bundle](https://github.com/simnple/revanced-patches/releases/latest/download/patches-1.4.0.rvp) and choose **Local** in ReVanced Manager.
 
 ## Supported apps
 
@@ -54,6 +54,15 @@ For a local installation, [download the latest RVP bundle](https://github.com/si
 | Patch | Function |
 | --- | --- |
 | `Disable Google Play Automatic Protection` | Makes Goondori's Google Play PairIP installer check accept APKs installed outside Google Play while preserving PairIP initialization. |
+
+### Navigation
+
+| Patch | Function |
+| --- | --- |
+| `Hide Vacation Tab` | Hides the Vacation tab from the bottom navigation. |
+| `Hide Community Tab` | Hides the Community tab from the bottom navigation. |
+| `Hide Content Tab` | Hides the Content tab from the bottom navigation. |
+| `Hide Store Tab` | Hides the Store tab from the bottom navigation. |
 
 </details>
 

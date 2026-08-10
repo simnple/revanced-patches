@@ -6,7 +6,7 @@ on:
       tag:
         description: "Release tag"
         required: true
-        default: "v1.3.0"
+        default: "v1.4.0"
   push:
     branches: [main]
     paths:
@@ -45,10 +45,10 @@ jobs:
       - name: Publish GitHub release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ github.event.inputs.tag || 'v1.3.0' }}
+          RELEASE_TAG: ${{ github.event.inputs.tag || 'v1.4.0' }}
         run: |
           gh release create "$RELEASE_TAG" patches/build/libs/*.rvp \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
             --title "ReVanced Patches $RELEASE_TAG" \
-            --notes "Removes the unsafe permission patch and adds independent network controls for Firebase logging, Firebase Remote Config, Funding Choices, and RevenueCat."
+            --notes "Adds independent Goondori patches for hiding the Vacation, Community, Content, and Store tabs."
