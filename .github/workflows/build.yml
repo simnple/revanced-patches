@@ -35,11 +35,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORG_GRADLE_PROJECT_githubPackagesUsername: ${{ github.actor }}
           ORG_GRADLE_PROJECT_githubPackagesPassword: ${{ secrets.GITHUB_TOKEN }}
-        run: ./gradlew :patches:apiDump :patches:buildAndroid --no-daemon
+        run: ./gradlew :patches:buildAndroid --no-daemon
 
       - name: Upload RVP
         uses: actions/upload-artifact@v7
         with:
-          name: simnple-revanced-patches
+          name: revanced-patches
           path: patches/build/libs/*.rvp
           archive: false

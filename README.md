@@ -1,6 +1,6 @@
 <div align="center">
 
-# simnple ReVanced Patches
+# ReVanced Patches
 
 **Small, auditable, privacy-focused patches for Android apps.**
 
@@ -72,7 +72,7 @@ Every push to `main` builds the bundle and uploads the resulting `.rvp` file as 
 1. Open the repository's **Actions** tab.
 2. Select **Build patch bundle**.
 3. Open the latest successful run.
-4. Download the `simnple-revanced-patches` artifact.
+4. Download the `revanced-patches` artifact.
 
 ### Local build
 
@@ -93,7 +93,7 @@ githubPackagesPassword=YOUR_TOKEN_WITH_READ_PACKAGES
 Build the Android patch bundle:
 
 ```bash
-./gradlew :patches:apiDump :patches:buildAndroid
+./gradlew :patches:buildAndroid
 ```
 
 The `.rvp` bundle is written to `patches/build/libs/`.
@@ -104,7 +104,7 @@ Extract `com.goondori.apk` from the original XAPK and run:
 
 ```bash
 java -jar revanced-cli.jar patch \
-  -bp simnple-revanced-patches.rvp \
+  -bp revanced-patches.rvp \
   --exclusive \
   -e "Goondori Privacy Suite" \
   -o goondori-privacy-5.6.0.apk \
