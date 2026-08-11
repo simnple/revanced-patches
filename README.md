@@ -18,7 +18,7 @@ Choose **Remote** and enter this patch bundle URL:
 https://raw.githubusercontent.com/simnple/revanced-patches/main/patches.json
 ```
 
-For a local installation, [download the latest RVP bundle](https://github.com/simnple/revanced-patches/releases/latest/download/patches-1.6.1.rvp) and choose **Local** in ReVanced Manager.
+For a local installation, [download the latest RVP bundle](https://github.com/simnple/revanced-patches/releases/latest/download/patches-1.6.2.rvp) and choose **Local** in ReVanced Manager.
 
 ## Supported apps
 

@@ -6,7 +6,7 @@ on:
       tag:
         description: "Release tag"
         required: true
-        default: "v1.6.1"
+        default: "v1.6.2"
   push:
     branches: [main]
     paths:
@@ -45,10 +45,10 @@ jobs:
       - name: Publish GitHub release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ github.event.inputs.tag || 'v1.6.1' }}
+          RELEASE_TAG: ${{ github.event.inputs.tag || 'v1.6.2' }}
         run: |
           gh release create "$RELEASE_TAG" patches/build/libs/*.rvp \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
             --title "ReVanced Patches $RELEASE_TAG" \
-            --notes "Removes the incompatible Hot Updates patch, adds a Home Feedback visibility patch, and removes empty ad layout spaces as part of Remove Ads."
+            --notes "Restores Disable Hot Updates with a safe HotUpdater state transition, and automatically pins the embedded bundle for Hermes-based UI patches so OTA bundle reloads cannot undo them."
