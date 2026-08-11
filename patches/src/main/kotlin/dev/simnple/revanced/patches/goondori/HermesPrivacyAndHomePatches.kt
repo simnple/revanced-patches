@@ -70,6 +70,21 @@ private val removeSensitiveLogsBytePatch = HermesBytePatch(
     replacement = bytes(147, 1, 147, 1, 147, 1),
 )
 
+private val disableHotUpdatesBytePatches = arrayOf(
+    HermesBytePatch(
+        name = "Complete HotUpdater Startup",
+        offset = 14_634_030,
+        expected = bytes(145, 8, 154, 35, 1, 0),
+        replacement = bytes(145, 8, 155, 35, 1, 0),
+    ),
+    HermesBytePatch(
+        name = "Disable HotUpdater Effect",
+        offset = 14_634_192,
+        expected = bytes(133, 5, 5, 7, 10, 1, 0),
+        replacement = bytes(133, 5, 5, 3, 10, 1, 0),
+    ),
+)
+
 private val disableInstallReferrerBytePatch = HermesBytePatch(
     name = "Disable Install Referrer",
     offset = 10_234_022,
@@ -179,8 +194,21 @@ private val removeAdLayoutBytePatches = arrayOf(
     ),
 )
 
+@Suppress("unused")
+val disableHotUpdatesPatch = resourcePatch(
+    name = "Disable Hot Updates",
+    description = "Keeps the embedded patched UI bundle active while allowing HotUpdater startup to complete normally.",
+) {
+    compatibleWith("com.goondori"("5.6.0"))
+
+    apply {
+        applyHermesPatches(*disableHotUpdatesBytePatches)
+    }
+}
+
 internal val removeAdLayoutsPatch = resourcePatch {
     compatibleWith("com.goondori"("5.6.0"))
+    dependsOn(disableHotUpdatesPatch)
 
     apply {
         applyHermesPatches(*removeAdLayoutBytePatches)
@@ -196,6 +224,7 @@ private fun hermesPatch(
     description = description,
 ) {
     compatibleWith("com.goondori"("5.6.0"))
+    dependsOn(disableHotUpdatesPatch)
 
     apply {
         applyHermesPatches(bytePatch)

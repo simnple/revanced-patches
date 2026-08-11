@@ -39,11 +39,12 @@ For a local installation, [download the latest RVP bundle](https://github.com/si
 | `Disable Firebase Startup Collection` | Disables collection and advertising-personalization signals at startup. |
 | `Disable Sentry` | Disables error and performance telemetry. |
 
-### Privacy
+### Privacy and updates
 
 | Patch | Function |
 | --- | --- |
 | `Remove Sensitive Logs` | Removes the access-token console log from session initialization. |
+| `Disable Hot Updates` | Keeps the embedded patched UI bundle active while completing HotUpdater startup normally. Hermes UI patches select this dependency automatically. |
 | `Disable Install Referrer` | Stops requests for the Google Play install-referrer value. |
 | `Disable Push Registration` | Stops FCM and Expo push-token registration. Push notifications will not work. |
 

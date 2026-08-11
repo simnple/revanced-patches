@@ -95,6 +95,7 @@ val hideVacationTabPatch = resourcePatch(
     description = "Hides the Vacation tab from Goondori's bottom navigation.",
 ) {
     compatibleWith("com.goondori"("5.6.0"))
+    dependsOn(disableHotUpdatesPatch)
 
     apply {
         hideTab(GoondoriTab.VACATION)
@@ -107,6 +108,7 @@ val hideCommunityTabPatch = resourcePatch(
     description = "Hides the Community tab from Goondori's bottom navigation.",
 ) {
     compatibleWith("com.goondori"("5.6.0"))
+    dependsOn(disableHotUpdatesPatch)
 
     apply {
         hideTab(GoondoriTab.COMMUNITY)
@@ -119,6 +121,7 @@ val hideContentTabPatch = resourcePatch(
     description = "Hides the Content tab from Goondori's bottom navigation.",
 ) {
     compatibleWith("com.goondori"("5.6.0"))
+    dependsOn(disableHotUpdatesPatch)
 
     apply {
         hideTab(GoondoriTab.CONTENT)
@@ -131,6 +134,7 @@ val hideStoreTabPatch = resourcePatch(
     description = "Hides the Store tab from Goondori's bottom navigation.",
 ) {
     compatibleWith("com.goondori"("5.6.0"))
+    dependsOn(disableHotUpdatesPatch)
 
     apply {
         hideTab(GoondoriTab.STORE)
