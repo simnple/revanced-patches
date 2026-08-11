@@ -4,14 +4,16 @@ import app.revanced.patcher.extensions.addInstruction
 import app.revanced.patcher.patch.bytecodePatch
 
 @Suppress("unused")
-val disableAdropMetricsPatch = bytecodePatch(
-    name = "Disable Adrop Metrics",
-    description = "Stops Adrop user properties and analytics events from crossing the React Native bridge.",
+val removeAdsPatch = bytecodePatch(
+    name = "Remove Ads",
+    description = "Removes ads and blocks Adrop identifiers and metrics without changing Goondori Premium entitlement.",
 ) {
     compatibleWith("com.goondori"("5.6.0"))
 
     apply {
         listOf(
+            adropInitializeFingerprint,
+            adropSetUidFingerprint,
             adropSetPropertyFingerprint,
             adropLogEventFingerprint,
             adropSendEventFingerprint,

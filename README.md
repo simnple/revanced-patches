@@ -25,12 +25,11 @@ For a local installation, [download the latest RVP bundle](https://github.com/si
 <details>
 <summary><strong>Goondori (군돌이)</strong> · <code>com.goondori</code> · 5.6.0 (214)</summary>
 
-### Adrop
+### Ads
 
 | Patch | Function |
 | --- | --- |
-| `Disable Adrop Ads` | Stops the advertising SDK from initializing and receiving a user ID. |
-| `Disable Adrop Metrics` | Blocks Adrop user properties and analytics events. |
+| `Remove Ads` | Removes ads and blocks Adrop initialization, user IDs, user properties, and analytics events without changing Goondori Premium entitlement. |
 
 ### Telemetry
 
