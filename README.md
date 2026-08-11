@@ -102,7 +102,10 @@ For a local installation, [download the latest RVP bundle](https://github.com/si
 | `Hide More Benefits` | Hides Benefits from the More menu. |
 | `Hide More Delivery` | Hides Goondori Delivery from the More menu. |
 | `Hide More Food Menu` | Hides the Food Menu from the More menu. |
+| `Hide More Mailbox` | Hides Goondori Mailbox from the More menu. |
 | `Hide More Celebrity Support` | Hides Celebrity Support from the More menu. |
+
+When all five More-menu functions are hidden, the empty **Features** section is removed automatically.
 
 </details>
 

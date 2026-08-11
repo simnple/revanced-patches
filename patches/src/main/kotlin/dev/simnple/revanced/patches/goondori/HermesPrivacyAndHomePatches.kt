@@ -35,33 +35,49 @@ internal fun ByteArray.updateHermesSha1() {
     digest.copyInto(this, payloadSize)
 }
 
-private fun ResourcePatchContext.applyHermesPatches(vararg patches: HermesBytePatch) {
-    val bundleFile = get(HERMES_ASSET_PATH)
-    val bundle = bundleFile.readBytes()
-
-    check(bundle.size == GOONDORI_HERMES_SIZE) {
-        "Unsupported Goondori Hermes bundle size: ${bundle.size}"
+private fun ByteArray.validateHermesBundle() {
+    check(size == GOONDORI_HERMES_SIZE) {
+        "Unsupported Goondori Hermes bundle size: $size"
     }
-    check(bundle.copyOfRange(0, goondoriHermesHeader.size).contentEquals(goondoriHermesHeader)) {
+    check(copyOfRange(0, goondoriHermesHeader.size).contentEquals(goondoriHermesHeader)) {
         "Unsupported Goondori Hermes bundle header or source hash"
     }
+}
+
+private fun ByteArray.applyHermesBytePatches(vararg patches: HermesBytePatch) {
     patches.forEach { patch ->
         check(patch.expected.size == patch.replacement.size) {
             "${patch.name} must preserve the Hermes bytecode size"
         }
 
-        val actual = bundle.copyOfRange(patch.offset, patch.offset + patch.expected.size)
+        val actual = copyOfRange(patch.offset, patch.offset + patch.expected.size)
         check(actual.contentEquals(patch.expected)) {
             "${patch.name} fingerprint mismatch at 0x${patch.offset.toString(16)}"
         }
     }
 
     patches.forEach { patch ->
-        patch.replacement.copyInto(bundle, patch.offset)
+        patch.replacement.copyInto(this, patch.offset)
     }
+}
+
+private fun ByteArray.hasHermesReplacement(patch: HermesBytePatch) =
+    copyOfRange(patch.offset, patch.offset + patch.replacement.size).contentEquals(patch.replacement)
+
+private fun ResourcePatchContext.updateHermesBundle(update: ByteArray.() -> Unit) {
+    val bundleFile = get(HERMES_ASSET_PATH)
+    val bundle = bundleFile.readBytes()
+
+    bundle.validateHermesBundle()
+    bundle.update()
     bundle.updateHermesSha1()
     bundleFile.writeBytes(bundle)
 }
+
+private fun ResourcePatchContext.applyHermesPatches(vararg patches: HermesBytePatch) =
+    updateHermesBundle {
+        applyHermesBytePatches(*patches)
+    }
 
 private val removeSensitiveLogsBytePatch = HermesBytePatch(
     name = "Remove Sensitive Logs",
@@ -183,6 +199,36 @@ private val hideMoreFoodMenuBytePatch = HermesBytePatch(
     replacement = bytes(148, 0, 118, 0, 16, 0, 0),
 )
 
+private val hideMoreMailboxBytePatch = HermesBytePatch(
+    name = "Hide More Mailbox",
+    offset = 10_471_683,
+    expected = bytes(52, 13, 0, 59, 5, 13, 0),
+    replacement = bytes(148, 0, 118, 0, 16, 0, 0),
+)
+
+private val moreMenuItemBytePatches = arrayOf(
+    hideMoreFoodMenuBytePatch,
+    hideMoreBenefitsBytePatch,
+    hideMoreDeliveryBytePatch,
+    hideMoreMailboxBytePatch,
+    hideMoreCelebritySupportBytePatch,
+)
+
+private val hideEmptyMoreFunctionSectionBytePatches = arrayOf(
+    HermesBytePatch(
+        name = "Hide Cached Empty More Function Section",
+        offset = 10_375_961,
+        expected = bytes(94, 7, 4, 13),
+        replacement = bytes(148, 7, 126, 126),
+    ),
+    HermesBytePatch(
+        name = "Hide Newly Rendered Empty More Function Section",
+        offset = 10_376_082,
+        expected = bytes(16, 7, 3),
+        replacement = bytes(148, 7, 126),
+    ),
+)
+
 private val removeAdLayoutBytePatches = arrayOf(
     HermesBytePatch(
         name = "Preserve Dashboard Home Ad-Free Spacing",
@@ -256,6 +302,28 @@ private fun hermesPatch(
 
     apply {
         applyHermesPatches(bytePatch)
+    }
+}
+
+private fun moreMenuPatch(
+    name: String,
+    description: String,
+    bytePatch: HermesBytePatch,
+) = resourcePatch(
+    name = name,
+    description = description,
+) {
+    compatibleWith("com.goondori"("5.6.0"))
+    dependsOn(disableHotUpdatesPatch)
+
+    apply {
+        updateHermesBundle {
+            applyHermesBytePatches(bytePatch)
+
+            if (moreMenuItemBytePatches.all { hasHermesReplacement(it) }) {
+                applyHermesBytePatches(*hideEmptyMoreFunctionSectionBytePatches)
+            }
+        }
     }
 }
 
@@ -337,29 +405,36 @@ val hideHomeFeedbackPatch = hermesPatch(
 )
 
 @Suppress("unused")
-val hideMoreBenefitsPatch = hermesPatch(
+val hideMoreBenefitsPatch = moreMenuPatch(
     name = "Hide More Benefits",
     description = "Hides Benefits from the More menu.",
     bytePatch = hideMoreBenefitsBytePatch,
 )
 
 @Suppress("unused")
-val hideMoreDeliveryPatch = hermesPatch(
+val hideMoreDeliveryPatch = moreMenuPatch(
     name = "Hide More Delivery",
     description = "Hides Goondori Delivery from the More menu.",
     bytePatch = hideMoreDeliveryBytePatch,
 )
 
 @Suppress("unused")
-val hideMoreFoodMenuPatch = hermesPatch(
+val hideMoreFoodMenuPatch = moreMenuPatch(
     name = "Hide More Food Menu",
     description = "Hides the Food Menu from the More menu.",
     bytePatch = hideMoreFoodMenuBytePatch,
 )
 
 @Suppress("unused")
-val hideMoreCelebritySupportPatch = hermesPatch(
+val hideMoreCelebritySupportPatch = moreMenuPatch(
     name = "Hide More Celebrity Support",
     description = "Hides Celebrity Support from the More menu.",
     bytePatch = hideMoreCelebritySupportBytePatch,
+)
+
+@Suppress("unused")
+val hideMoreMailboxPatch = moreMenuPatch(
+    name = "Hide More Mailbox",
+    description = "Hides Goondori Mailbox from the More menu.",
+    bytePatch = hideMoreMailboxBytePatch,
 )
