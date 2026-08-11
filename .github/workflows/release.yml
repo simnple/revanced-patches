@@ -6,7 +6,7 @@ on:
       tag:
         description: "Release tag"
         required: true
-        default: "v1.6.0"
+        default: "v1.6.1"
   push:
     branches: [main]
     paths:
@@ -45,10 +45,10 @@ jobs:
       - name: Publish GitHub release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ github.event.inputs.tag || 'v1.6.0' }}
+          RELEASE_TAG: ${{ github.event.inputs.tag || 'v1.6.1' }}
         run: |
           gh release create "$RELEASE_TAG" patches/build/libs/*.rvp \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
             --title "ReVanced Patches $RELEASE_TAG" \
-            --notes "Adds privacy controls for sensitive logs, HotUpdater, install referrer, push registration, and Premium promotions; adds independent home-dashboard visibility patches; and repairs Hermes footer hashes after bytecode changes."
+            --notes "Removes the incompatible Hot Updates patch, adds a Home Feedback visibility patch, and removes empty ad layout spaces as part of Remove Ads."
