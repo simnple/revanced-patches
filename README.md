@@ -29,7 +29,7 @@ For a local installation, [download the latest RVP bundle](https://github.com/si
 
 | Patch | Function |
 | --- | --- |
-| `Remove Ads` | Removes ads and their empty layout spaces, and blocks Adrop initialization, user IDs, user properties, and analytics events without changing Goondori Premium entitlement. |
+| `Remove Ads` | Removes ads and their empty layout spaces, preserves the dashboard's ad-free spacing, and blocks Adrop initialization, user IDs, user properties, and analytics events without changing Goondori Premium entitlement. |
 
 ### Telemetry
 
@@ -94,6 +94,15 @@ For a local installation, [download the latest RVP bundle](https://github.com/si
 | `Hide Home Food Menu` | Hides the Food Menu from the home dashboard. |
 | `Hide Home Vacation` | Hides Vacation from the home dashboard. |
 | `Hide Home Feedback` | Hides the “How was your new home?” feedback card from the home dashboard. |
+
+### More menu
+
+| Patch | Function |
+| --- | --- |
+| `Hide More Benefits` | Hides Benefits from the More menu. |
+| `Hide More Delivery` | Hides Goondori Delivery from the More menu. |
+| `Hide More Food Menu` | Hides the Food Menu from the More menu. |
+| `Hide More Celebrity Support` | Hides Celebrity Support from the More menu. |
 
 </details>
 

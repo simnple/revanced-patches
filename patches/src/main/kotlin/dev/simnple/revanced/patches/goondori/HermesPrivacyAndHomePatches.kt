@@ -155,12 +155,40 @@ private val hideHomeFeedbackBytePatch = HermesBytePatch(
     replacement = bytes(148, 0, 118, 0, 16, 0, 0),
 )
 
+private val hideMoreBenefitsBytePatch = HermesBytePatch(
+    name = "Hide More Benefits",
+    offset = 10_377_299,
+    expected = bytes(52, 10, 0, 59, 2, 10, 0),
+    replacement = bytes(148, 0, 118, 0, 16, 0, 0),
+)
+
+private val hideMoreCelebritySupportBytePatch = HermesBytePatch(
+    name = "Hide More Celebrity Support",
+    offset = 10_379_000,
+    expected = bytes(52, 8, 0, 59, 2, 8, 0),
+    replacement = bytes(148, 0, 118, 0, 16, 0, 0),
+)
+
+private val hideMoreDeliveryBytePatch = HermesBytePatch(
+    name = "Hide More Delivery",
+    offset = 10_379_514,
+    expected = bytes(52, 9, 0, 59, 3, 9, 0),
+    replacement = bytes(148, 0, 118, 0, 16, 0, 0),
+)
+
+private val hideMoreFoodMenuBytePatch = HermesBytePatch(
+    name = "Hide More Food Menu",
+    offset = 10_380_079,
+    expected = bytes(52, 8, 0, 59, 2, 8, 0),
+    replacement = bytes(148, 0, 118, 0, 16, 0, 0),
+)
+
 private val removeAdLayoutBytePatches = arrayOf(
     HermesBytePatch(
-        name = "Remove Dashboard Home Banner Ad Layout",
-        offset = 10_121_178,
-        expected = bytes(52, 3, 0, 59, 2, 3, 0),
-        replacement = bytes(148, 0, 118, 0, 16, 0, 0),
+        name = "Preserve Dashboard Home Ad-Free Spacing",
+        offset = 10_121_214,
+        expected = bytes(177, 245, 0, 0, 0, 2),
+        replacement = bytes(175, 245, 0, 0, 0, 126),
     ),
     HermesBytePatch(
         name = "Remove Non-Premium Banner Ad Layout",
@@ -306,4 +334,32 @@ val hideHomeFeedbackPatch = hermesPatch(
     name = "Hide Home Feedback",
     description = "Hides the 'How was your new home?' feedback card from the Goondori home dashboard.",
     bytePatch = hideHomeFeedbackBytePatch,
+)
+
+@Suppress("unused")
+val hideMoreBenefitsPatch = hermesPatch(
+    name = "Hide More Benefits",
+    description = "Hides Benefits from the More menu.",
+    bytePatch = hideMoreBenefitsBytePatch,
+)
+
+@Suppress("unused")
+val hideMoreDeliveryPatch = hermesPatch(
+    name = "Hide More Delivery",
+    description = "Hides Goondori Delivery from the More menu.",
+    bytePatch = hideMoreDeliveryBytePatch,
+)
+
+@Suppress("unused")
+val hideMoreFoodMenuPatch = hermesPatch(
+    name = "Hide More Food Menu",
+    description = "Hides the Food Menu from the More menu.",
+    bytePatch = hideMoreFoodMenuBytePatch,
+)
+
+@Suppress("unused")
+val hideMoreCelebritySupportPatch = hermesPatch(
+    name = "Hide More Celebrity Support",
+    description = "Hides Celebrity Support from the More menu.",
+    bytePatch = hideMoreCelebritySupportBytePatch,
 )
