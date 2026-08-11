@@ -18,7 +18,7 @@ Choose **Remote** and enter this patch bundle URL:
 https://raw.githubusercontent.com/simnple/revanced-patches/main/patches.json
 ```
 
-For a local installation, [download the latest RVP bundle](https://github.com/simnple/revanced-patches/releases/latest/download/patches-1.5.0.rvp) and choose **Local** in ReVanced Manager.
+For a local installation, [download the latest RVP bundle](https://github.com/simnple/revanced-patches/releases/latest/download/patches-1.6.0.rvp) and choose **Local** in ReVanced Manager.
 
 ## Supported apps
 
@@ -39,6 +39,21 @@ For a local installation, [download the latest RVP bundle](https://github.com/si
 | `Disable Firebase Startup Collection` | Disables collection and advertising-personalization signals at startup. |
 | `Disable Sentry` | Disables error and performance telemetry. |
 
+### Privacy and updates
+
+| Patch | Function |
+| --- | --- |
+| `Remove Sensitive Logs` | Removes the access-token console log from session initialization. |
+| `Disable Hot Updates` | Stops automatic HotUpdater checks and remote JavaScript bundle downloads. App updates must be installed normally. |
+| `Disable Install Referrer` | Stops requests for the Google Play install-referrer value. |
+| `Disable Push Registration` | Stops FCM and Expo push-token registration. Push notifications will not work. |
+
+### Interface
+
+| Patch | Function |
+| --- | --- |
+| `Hide Premium Promotions` | Hides the Premium entry without changing entitlement or purchase status. |
+
 ### Network services
 
 | Patch | Function |
@@ -46,7 +61,12 @@ For a local installation, [download the latest RVP bundle](https://github.com/si
 | `Disable Firebase Logging` | Stops Firebase and Google DataTransport telemetry sent through `firebaselogging.googleapis.com`. |
 | `Disable Firebase Remote Config` | Stops Firebase from fetching server-controlled settings. |
 | `Disable Funding Choices` | Stops Google Funding Choices and UMP advertising-consent requests. |
-| `Disable RevenueCat` | Stops RevenueCat subscription, entitlement, purchase-status, and paywall requests. RevenueCat-backed purchases will not work. |
+
+### Subscription network (optional)
+
+| Patch | Function |
+| --- | --- |
+| `Disable RevenueCat` | Optionally stops RevenueCat subscription, entitlement, purchase-status, and paywall requests. RevenueCat-backed purchases will not work. |
 
 ### Installation
 
@@ -62,6 +82,17 @@ For a local installation, [download the latest RVP bundle](https://github.com/si
 | `Hide Community Tab` | Hides the Community tab from the bottom navigation. |
 | `Hide Content Tab` | Hides the Content tab from the bottom navigation. |
 | `Hide Store Tab` | Hides the Store tab from the bottom navigation. |
+
+### Home dashboard
+
+| Patch | Function |
+| --- | --- |
+| `Hide Home Benefits` | Hides Benefits from the home dashboard. |
+| `Hide Home Delivery` | Hides Goondori Delivery from the home dashboard. |
+| `Hide Home Mailbox` | Hides Goondori Mailbox from the home dashboard. |
+| `Hide Home Community` | Hides Community from the home dashboard. |
+| `Hide Home Food Menu` | Hides the Food Menu from the home dashboard. |
+| `Hide Home Vacation` | Hides Vacation from the home dashboard. |
 
 </details>
 

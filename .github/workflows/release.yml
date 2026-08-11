@@ -6,7 +6,7 @@ on:
       tag:
         description: "Release tag"
         required: true
-        default: "v1.5.0"
+        default: "v1.6.0"
   push:
     branches: [main]
     paths:
@@ -45,10 +45,10 @@ jobs:
       - name: Publish GitHub release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ github.event.inputs.tag || 'v1.5.0' }}
+          RELEASE_TAG: ${{ github.event.inputs.tag || 'v1.6.0' }}
         run: |
           gh release create "$RELEASE_TAG" patches/build/libs/*.rvp \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
             --title "ReVanced Patches $RELEASE_TAG" \
-            --notes "Consolidates all Adrop ad and metrics controls into the single Remove Ads patch."
+            --notes "Adds privacy controls for sensitive logs, HotUpdater, install referrer, push registration, and Premium promotions; adds independent home-dashboard visibility patches; and repairs Hermes footer hashes after bytecode changes."
