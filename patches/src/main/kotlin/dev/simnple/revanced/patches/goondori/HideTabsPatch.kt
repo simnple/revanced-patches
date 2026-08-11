@@ -85,6 +85,7 @@ private fun ResourcePatchContext.hideTab(tab: GoondoriTab) {
         bundle[operandOffset + 1] = (MORE_STRING_ID ushr 8).toByte()
     }
 
+    bundle.updateHermesSha1()
     bundleFile.writeBytes(bundle)
 }
 
