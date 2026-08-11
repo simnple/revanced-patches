@@ -6,9 +6,10 @@ import app.revanced.patcher.patch.bytecodePatch
 @Suppress("unused")
 val removeAdsPatch = bytecodePatch(
     name = "Remove Ads",
-    description = "Removes ads and blocks Adrop identifiers and metrics without changing Goondori Premium entitlement.",
+    description = "Removes ads and their empty layout spaces, and blocks Adrop identifiers and metrics without changing Goondori Premium entitlement.",
 ) {
     compatibleWith("com.goondori"("5.6.0"))
+    dependsOn(removeAdLayoutsPatch)
 
     apply {
         listOf(

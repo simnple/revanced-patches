@@ -35,7 +35,7 @@ internal fun ByteArray.updateHermesSha1() {
     digest.copyInto(this, payloadSize)
 }
 
-private fun ResourcePatchContext.applyHermesPatch(patch: HermesBytePatch) {
+private fun ResourcePatchContext.applyHermesPatches(vararg patches: HermesBytePatch) {
     val bundleFile = get(HERMES_ASSET_PATH)
     val bundle = bundleFile.readBytes()
 
@@ -45,16 +45,20 @@ private fun ResourcePatchContext.applyHermesPatch(patch: HermesBytePatch) {
     check(bundle.copyOfRange(0, goondoriHermesHeader.size).contentEquals(goondoriHermesHeader)) {
         "Unsupported Goondori Hermes bundle header or source hash"
     }
-    check(patch.expected.size == patch.replacement.size) {
-        "${patch.name} must preserve the Hermes bytecode size"
+    patches.forEach { patch ->
+        check(patch.expected.size == patch.replacement.size) {
+            "${patch.name} must preserve the Hermes bytecode size"
+        }
+
+        val actual = bundle.copyOfRange(patch.offset, patch.offset + patch.expected.size)
+        check(actual.contentEquals(patch.expected)) {
+            "${patch.name} fingerprint mismatch at 0x${patch.offset.toString(16)}"
+        }
     }
 
-    val actual = bundle.copyOfRange(patch.offset, patch.offset + patch.expected.size)
-    check(actual.contentEquals(patch.expected)) {
-        "${patch.name} fingerprint mismatch at 0x${patch.offset.toString(16)}"
+    patches.forEach { patch ->
+        patch.replacement.copyInto(bundle, patch.offset)
     }
-
-    patch.replacement.copyInto(bundle, patch.offset)
     bundle.updateHermesSha1()
     bundleFile.writeBytes(bundle)
 }
@@ -64,13 +68,6 @@ private val removeSensitiveLogsBytePatch = HermesBytePatch(
     offset = 12_615_204,
     expected = bytes(111, 1, 2, 3, 1, 6),
     replacement = bytes(147, 1, 147, 1, 147, 1),
-)
-
-private val disableHotUpdatesBytePatch = HermesBytePatch(
-    name = "Disable Hot Updates",
-    offset = 12_975_605,
-    expected = bytes(52, 1, 0, 59, 1, 1, 3),
-    replacement = bytes(147, 0, 118, 0, 16, 0, 0),
 )
 
 private val disableInstallReferrerBytePatch = HermesBytePatch(
@@ -136,6 +133,60 @@ private val hideHomeVacationBytePatch = HermesBytePatch(
     replacement = bytes(148, 0, 118, 0, 16, 0, 0),
 )
 
+private val hideHomeFeedbackBytePatch = HermesBytePatch(
+    name = "Hide Home Feedback",
+    offset = 10_224_982,
+    expected = bytes(52, 3, 0, 59, 2, 3, 2),
+    replacement = bytes(148, 0, 118, 0, 16, 0, 0),
+)
+
+private val removeAdLayoutBytePatches = arrayOf(
+    HermesBytePatch(
+        name = "Remove Dashboard Home Banner Ad Layout",
+        offset = 10_121_178,
+        expected = bytes(52, 3, 0, 59, 2, 3, 0),
+        replacement = bytes(148, 0, 118, 0, 16, 0, 0),
+    ),
+    HermesBytePatch(
+        name = "Remove Non-Premium Banner Ad Layout",
+        offset = 10_121_649,
+        expected = bytes(52, 4, 0, 137, 3, 1),
+        replacement = bytes(148, 0, 118, 0, 147, 0),
+    ),
+    HermesBytePatch(
+        name = "Remove Dashboard Home FAB Banner Ad Layout",
+        offset = 10_366_268,
+        expected = bytes(52, 4, 0, 59, 3, 4, 0),
+        replacement = bytes(148, 0, 118, 0, 16, 0, 0),
+    ),
+    HermesBytePatch(
+        name = "Remove Community Post Banner Ad Layout",
+        offset = 11_184_024,
+        expected = bytes(52, 7, 0, 59, 2, 7, 0),
+        replacement = bytes(148, 0, 118, 0, 16, 0, 0),
+    ),
+    HermesBytePatch(
+        name = "Remove Community Post Fallback Ad Layout",
+        offset = 11_184_188,
+        expected = bytes(52, 13, 0, 59, 2, 13, 0),
+        replacement = bytes(148, 0, 118, 0, 16, 0, 0),
+    ),
+    HermesBytePatch(
+        name = "Remove Content Detail Ad Layout",
+        offset = 11_241_342,
+        expected = bytes(52, 7, 0, 59, 2, 7, 0),
+        replacement = bytes(148, 0, 118, 0, 16, 0, 0),
+    ),
+)
+
+internal val removeAdLayoutsPatch = resourcePatch {
+    compatibleWith("com.goondori"("5.6.0"))
+
+    apply {
+        applyHermesPatches(*removeAdLayoutBytePatches)
+    }
+}
+
 private fun hermesPatch(
     name: String,
     description: String,
@@ -147,7 +198,7 @@ private fun hermesPatch(
     compatibleWith("com.goondori"("5.6.0"))
 
     apply {
-        applyHermesPatch(bytePatch)
+        applyHermesPatches(bytePatch)
     }
 }
 
@@ -156,13 +207,6 @@ val removeSensitiveLogsPatch = hermesPatch(
     name = "Remove Sensitive Logs",
     description = "Removes the access-token console log from Goondori session initialization.",
     bytePatch = removeSensitiveLogsBytePatch,
-)
-
-@Suppress("unused")
-val disableHotUpdatesPatch = hermesPatch(
-    name = "Disable Hot Updates",
-    description = "Stops the automatic HotUpdater update check and remote JavaScript bundle download.",
-    bytePatch = disableHotUpdatesBytePatch,
 )
 
 @Suppress("unused")
@@ -226,4 +270,11 @@ val hideHomeVacationPatch = hermesPatch(
     name = "Hide Home Vacation",
     description = "Hides Vacation from the Goondori home dashboard.",
     bytePatch = hideHomeVacationBytePatch,
+)
+
+@Suppress("unused")
+val hideHomeFeedbackPatch = hermesPatch(
+    name = "Hide Home Feedback",
+    description = "Hides the 'How was your new home?' feedback card from the Goondori home dashboard.",
+    bytePatch = hideHomeFeedbackBytePatch,
 )

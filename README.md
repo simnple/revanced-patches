@@ -29,7 +29,7 @@ For a local installation, [download the latest RVP bundle](https://github.com/si
 
 | Patch | Function |
 | --- | --- |
-| `Remove Ads` | Removes ads and blocks Adrop initialization, user IDs, user properties, and analytics events without changing Goondori Premium entitlement. |
+| `Remove Ads` | Removes ads and their empty layout spaces, and blocks Adrop initialization, user IDs, user properties, and analytics events without changing Goondori Premium entitlement. |
 
 ### Telemetry
 
@@ -39,12 +39,11 @@ For a local installation, [download the latest RVP bundle](https://github.com/si
 | `Disable Firebase Startup Collection` | Disables collection and advertising-personalization signals at startup. |
 | `Disable Sentry` | Disables error and performance telemetry. |
 
-### Privacy and updates
+### Privacy
 
 | Patch | Function |
 | --- | --- |
 | `Remove Sensitive Logs` | Removes the access-token console log from session initialization. |
-| `Disable Hot Updates` | Stops automatic HotUpdater checks and remote JavaScript bundle downloads. App updates must be installed normally. |
 | `Disable Install Referrer` | Stops requests for the Google Play install-referrer value. |
 | `Disable Push Registration` | Stops FCM and Expo push-token registration. Push notifications will not work. |
 
@@ -93,6 +92,7 @@ For a local installation, [download the latest RVP bundle](https://github.com/si
 | `Hide Home Community` | Hides Community from the home dashboard. |
 | `Hide Home Food Menu` | Hides the Food Menu from the home dashboard. |
 | `Hide Home Vacation` | Hides Vacation from the home dashboard. |
+| `Hide Home Feedback` | Hides the “How was your new home?” feedback card from the home dashboard. |
 
 </details>
 
